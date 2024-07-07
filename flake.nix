@@ -36,10 +36,12 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         inherit buildInputs nativeBuildInputs;
+        env = { FILEPATH = "/home/ivand/pic/bg"; };
       };
       packages.${system} = {
         default = pkgs.rustPlatform.buildRustPackage {
           inherit nativeBuildInputs;
+          env = { FILEPATH = "/var/lib/pic"; };
           name = "pic.idimitrov.dev";
           src = ./.;
           cargoLock = {
