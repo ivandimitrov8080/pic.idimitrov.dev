@@ -7,7 +7,7 @@
     ide = { url = "github:ivandimitrov8080/flake-ide"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
-  outputs = { nixpkgs, fnx, ide, ... }:
+  outputs = { self, nixpkgs, fnx, ide, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -47,6 +47,11 @@
           cargoLock = {
             lockFile = ./Cargo.lock;
           };
+        };
+      };
+      overlays.${system} = {
+        default = final: prev: {
+          pic = self.packages.${system}.default;
         };
       };
     };
